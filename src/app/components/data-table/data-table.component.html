@@ -1,0 +1,13 @@
+<table>
+  <thead>
+    <th *ngFor="let header of tableData | dataTable: 'headers'">
+      {{ header }}
+    </th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of tableData | dataTable: 'rows'">
+      <td *ngFor="let column of row">{{ column }}</td>
+      <td><button (click)="selectRow()">Details</button></td>
+    </tr>
+  </tbody>
+</table>

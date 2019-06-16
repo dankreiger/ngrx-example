@@ -1,6 +1,14 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <button (click)="changeView()">Change View</button>
+<ng-container *ngIf="!customersList; else app">
+  loading...
+</ng-container>
 
-  <div>Current View: {{ currentView$ | async }}</div>
-</div>
+<ng-template #app>
+  <ng-container *ngIf="ordersViewVisible$ | async; else customersView"
+    >orders
+  </ng-container>
+  <ng-template #customersView>
+    <app-data-table [tableData]="customersList"></app-data-table>
+  </ng-template>
+
+  <button (click)="changeView()">toggle view</button>
+</ng-template>

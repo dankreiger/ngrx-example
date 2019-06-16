@@ -1,24 +1,14 @@
-import { createReducer, on } from '@ngrx/store';
-import { changeView, ViewAction } from '../actions/view.actions';
+import { createReducer, on, Action } from '@ngrx/store';
+import { ChangeView } from './../actions/view.actions';
+import { IViewState } from '../typings/view.typings';
 
-/**
- * @description declarations
- */
-
-export interface ViewState {
-  ordersView: boolean;
-}
-
-export const viewReducerInitialState: ViewState = {
+export const viewReducerInitialState: IViewState = {
   ordersView: false
 };
 
-/**
- * @description reducer
- */
 const reducer = createReducer(
   viewReducerInitialState,
-  on(changeView, (state: ViewState) => {
+  on(ChangeView, (state: IViewState) => {
     return {
       ...state,
       ordersView: !state.ordersView
@@ -26,6 +16,6 @@ const reducer = createReducer(
   })
 );
 
-export function viewReducer(state: ViewState | undefined, action: ViewAction) {
+export function viewReducer(state: IViewState, action: Action) {
   return reducer(state, action);
 }

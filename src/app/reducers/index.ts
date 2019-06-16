@@ -1,15 +1,24 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
-import { environment } from '../../environments/environment';
-import { ViewState, viewReducer } from './view.reducer';
+import { environment } from './../../environments/environment';
 
-export interface AppState {
-  viewReducer: ViewState;
+import { viewReducer } from './view.reducer';
+import { customersReducer } from './customers.reducer';
+
+import { IViewState } from '../typings/view.typings';
+import { ICustomerState } from '../typings/customers.typings';
+
+export interface IAppState {
+  viewReducer: IViewState;
+  customersReducer: ICustomerState;
 }
 
-export const reducers: ActionReducerMap<AppState> = {
-  viewReducer
+export const appInitialState = {
+  viewReducer,
+  customersReducer
 };
 
-export const metaReducers: MetaReducer<AppState>[] = !environment.production
+export const reducers: ActionReducerMap<IAppState> = appInitialState;
+
+export const metaReducers: MetaReducer<IAppState>[] = !environment.production
   ? []
   : [];

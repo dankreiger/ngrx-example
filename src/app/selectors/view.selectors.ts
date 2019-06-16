@@ -1,12 +1,12 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { ViewState } from '../reducers/view.reducer';
-import { AppState } from '../reducers';
+import { IAppState } from '../reducers';
+import { IViewState } from '../typings/view.typings';
 
-export const selectViewState = createFeatureSelector<AppState, ViewState>(
+export const selectIViewState = createFeatureSelector<IAppState, IViewState>(
   'viewReducer'
 );
 
-export const getCurrentView = createSelector(
-  selectViewState,
-  (state: ViewState) => state.ordersView
+export const ordersViewVisible = createSelector(
+  selectIViewState,
+  (state: IViewState) => state.ordersView
 );
