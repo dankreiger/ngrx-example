@@ -15,7 +15,7 @@ import { Pipe, PipeTransform } from '@angular/core';
  */
 @Pipe({ name: 'dataTable' })
 export class DataTablePipe implements PipeTransform {
-  transform(list: object[], format: 'headers' | 'rows') {
+  transform(list: object[], format: 'headers' | 'rows'): any {
     switch (format) {
       case 'headers':
         return list[0] ? Object.keys(list[0]) : [];

@@ -1,0 +1,9 @@
+:host {
+  tr {
+    cursor: pointer;
+    &.active {
+      background: black;
+      color: white;
+    }
+  }
+}

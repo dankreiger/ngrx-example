@@ -1,13 +1,19 @@
-<table>
+<table class="table">
   <thead>
-    <th *ngFor="let header of tableData | dataTable: 'headers'">
+    <th *ngFor="let header of dataTableHeaders">
       {{ header }}
     </th>
   </thead>
   <tbody>
-    <tr *ngFor="let row of tableData | dataTable: 'rows'">
-      <td *ngFor="let column of row">{{ column }}</td>
-      <td><button (click)="selectRow()">Details</button></td>
+    <tr
+      *ngFor="let row of dataTableRows; let index = index"
+      (click)="selectRow(index)"
+      [class.active]="activeRowIndex === index"
+    >
+      <td *ngFor="let column of row">
+        {{ column }}
+      </td>
+      <!-- <td><button (click)="selectRow(row)">Details</button></td> -->
     </tr>
   </tbody>
 </table>

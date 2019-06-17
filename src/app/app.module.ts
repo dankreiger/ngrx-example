@@ -19,9 +19,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { CustomersEffects } from './effects/customers.effects';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { DataTablePipe } from './components/data-table/data-table.pipe';
+import { DatePickerComponent } from './components/date-picker/date-picker.component';
+import { OrdersEffects } from './effects/orders.effects';
 
 @NgModule({
-  declarations: [AppComponent, DataTableComponent, DataTablePipe],
+  declarations: [
+    AppComponent,
+    DataTableComponent,
+    DataTablePipe,
+    DatePickerComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -30,7 +37,7 @@ import { DataTablePipe } from './components/data-table/data-table.pipe';
       maxAge: 25,
       logOnly: environment.production
     }),
-    EffectsModule.forRoot([CustomersEffects])
+    EffectsModule.forRoot([CustomersEffects, OrdersEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

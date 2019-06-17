@@ -1,37 +1,29 @@
 import { createReducer, on } from '@ngrx/store';
-import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
-import { ICustomer, ICustomerState } from '../typings/customers.typings';
+import { ICustomerState } from '../typings/customers.typings';
 import {
   GetCustomersListSuccess,
-  GetCustomersListFailure
+  GetCustomersListFailure,
+  GetCustomersList
 } from '../actions/customers.actions';
 
-export const customerAdapter: EntityAdapter<ICustomer> = createEntityAdapter();
+const customersReducerInitialState: ICustomerState = {
+  customers: [],
+  loading: false,
+  error: null
+};
 
-const customersReducerInitialState: ICustomerState = customerAdapter.getInitialState(
-  {
-    customers: [],
-    selectedCustomer: null,
-    loading: false,
-    error: null
-  }
-);
-
-// export const customerReducerInitialState: ICustomerState = {
-//   customers: [],
-//   selectedCustomer: null,
-//   loading: false,
-//   error: null
-// };
-
-//!!! TODO: remove adapter if it isn't necessary here
 const reducer = createReducer(
   customersReducerInitialState,
+  on(GetCustomersList, (state: ICustomerState) => {
+    return {
+      ...state,
+      loading: true
+    };
+  }),
   on(GetCustomersListSuccess, (state: ICustomerState, { payload }) => {
     return {
-      ...customerAdapter.addAll(payload.customers, state),
-      // ...state,
+      ...state,
       loading: false,
       customers: payload.customers
     };

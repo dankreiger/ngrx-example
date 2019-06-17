@@ -1,14 +1,33 @@
-<ng-container *ngIf="!customersList; else app">
-  loading...
-</ng-container>
-
-<ng-template #app>
-  <ng-container *ngIf="ordersViewVisible$ | async; else customersView"
-    >orders
+<div class="container">
+  <!-- TODO use loading observable from store here -->
+  <ng-container *ngIf="!customersList; else app">
+    loading...
   </ng-container>
-  <ng-template #customersView>
-    <app-data-table [tableData]="customersList"></app-data-table>
-  </ng-template>
 
-  <button (click)="changeView()">toggle view</button>
-</ng-template>
+  <!-- TODO abstract into reusable layouts -->
+  <ng-template #app>
+    <div class="row">
+      <div class="col-12">
+        <app-component-data-table
+          [tableData]="ordersViewVisible ? ordersList : customersList"
+          [selectingDisabled]="ordersViewVisible"
+          (activeRow)="setActiveItem($event)"
+        ></app-component-data-table>
+      </div>
+      <div class="col-12">
+        <ng-container *ngIf="ordersViewVisible; else datePicker">
+          orders
+        </ng-container>
+        <ng-template #datePicker>
+          date picker
+        </ng-template>
+      </div>
+    </div>
+
+    <!-- TODO - too much logic in the view here -->
+    <button *ngIf="activeItem && !ordersViewVisible" (click)="submitForm()">
+      Get Orders
+    </button>
+    <button *ngIf="ordersViewVisible" (click)="submitForm()">Go Back</button>
+  </ng-template>
+</div>
